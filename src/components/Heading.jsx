@@ -12,7 +12,8 @@ const Heading = () => {
     if (shouldLogOut) {
       logOut().then(({ data }) => {
         signOutUser(data);
-        navigate("/login");
+        localStorage.removeItem("access_token");
+        navigate("/");
       });
     }
   };
@@ -32,36 +33,46 @@ const Heading = () => {
               Animals
             </Link>
           </li>
-       
-            <li className="nav-item">
-              <Link to="/add" className="btn btn-success" aria-current="page">
-                Add Animal
-              </Link>
-            </li>
-         
+
+          {signedIn ? (
             <>
               <li className="nav-item">
-                <Link to="/register" className="btn btn-success" aria-current="page">
+                <Link to="/add" className="btn btn-success" aria-current="page">
+                  Add Animal
+                </Link>
+              </li>{" "}
+              <li className="nav-item">
+                <button
+                  className="btn btn-danger"
+                  type="submit"
+                  onClick={() => handleLogOut()}
+                >
+                  Log Out
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link
+                  to="/register"
+                  className="btn btn-success"
+                  aria-current="page"
+                >
                   Sign Up
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/login" className="btn btn-success" aria-current="page">
+                <Link
+                  to="/login"
+                  className="btn btn-success"
+                  aria-current="page"
+                >
                   Sign In
                 </Link>
               </li>
             </>
-      
-            <li className="nav-item">
-              <button
-                className="btn btn-danger"
-                type="submit"
-                onClick={() => handleLogOut()}
-              >
-                Log Out
-              </button>
-            </li>
-         
+          )}
         </ul>
       </header>
     </div>

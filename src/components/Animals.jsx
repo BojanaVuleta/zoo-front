@@ -8,7 +8,6 @@ const Animals = () => {
 
   useEffect(() => {
     getAnimals().then(({ data }) => {
-      console.log(data);
       updateAnimals(data);
     });
   }, []);
